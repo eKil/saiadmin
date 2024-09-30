@@ -26,7 +26,7 @@ class UploadService
         $uploadConfig = $logic->getGroup('upload_config');
 
         $file = current(request()->file());
-        $ext = $file->getUploadExtension() ?: null;
+        $ext = strtolower($file->getUploadExtension()) ?: null; // 上传的文件名后缀转小写
         $file_size = $file->getSize();
         if ($file_size > Arr::getConfigValue($uploadConfig,'upload_size')) {
             throw new ApiException('文件大小超过限制');
